@@ -8,8 +8,7 @@
 int main(){
     struct hostent *hote = NULL;
     const char *nomHote = "www.ensias.ma";
-    struct in_addr ip;
-    
+    struct sockaddr_in monAddresse;
 
     hote = gethostbyname(nomHote);
 
@@ -19,10 +18,9 @@ int main(){
         exit(EXIT_FAILURE);
     }
     
-    memcpy(&(ip.s_addr), hote->h_addr_list[0], sizeof(u_long));
+    memcpy(&(monAddresse.sin_addr), hote->h_addr_list[0], sizeof(u_long));
+    //monAddresse.sin_addr = *((struct in_addr*)hote->h_addr_list[0]);
     
-    
-    printf("%s ------- %s\n", nomHote, inet_ntoa(ip) );
-    
+    printf("%s ------- %s\n", nomHote, inet_ntoa((monAddresse.sin_addr)));
     return 0;
 }
